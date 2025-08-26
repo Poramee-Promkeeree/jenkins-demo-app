@@ -1,7 +1,8 @@
-FROM jenkins/jenkins:lts-jdk17
+FROM python:3.9-slim
 
-USER root
-RUN apt update && curl -fsSL https://get.docker.com | sh
-RUN usermod -aG docker jenkins
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
-USER jenkins
+COPY app.py .
+CMD ["python", "app.py"]
